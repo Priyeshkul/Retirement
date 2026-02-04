@@ -1,341 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swayam Prakash | Retirement Celebration</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@200&family=Syne:wght@400;700&family=Tenor+Sans&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary: #fff;
-            --accent: #ff3e00;
-            --bg: #050505;
-            --glass: rgba(255, 255, 255, 0.04);
-            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swayam Prakash | The Grand Chapter</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Syne:wght@400;700&family=Tenor+Sans&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg);
-            color: var(--primary);
-            font-family: 'Syne', sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
+<style>
+:root{
+    --primary:#fff;
+    --accent:#ff3e00;
+    --bg:#050505;
+    --glass:rgba(255,255,255,0.08);
+}
 
-        /* --- Custom Cursor --- */
-        #cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 1px solid var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.15s ease-out, background 0.3s ease;
-            mix-blend-mode: difference;
-        }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        /* --- Background Layers --- */
-        .career-bg {
-            position: fixed;
-            top: -5%; left: -5%; width: 110%; height: 110%;
-            background: url("bg.png") no-repeat center center;
-            background-size: cover;
-            z-index: 0;
-            opacity: 0.45;
-            filter: contrast(1.1) brightness(0.7);
-            will-change: transform;
-        }
+body{
+    background:var(--bg);
+    color:var(--primary);
+    font-family:'Syne',sans-serif;
+    overflow:hidden;
+}
 
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.8) 100%);
-            z-index: 1;
-        }
+/* BACKGROUND */
+.career-bg{
+    position:fixed;
+    inset:-5%;
+    background:url("bg.png") center/cover no-repeat;
+    opacity:0.45;
+    filter:contrast(1.1) brightness(0.7);
+    animation:bgBreath 10s ease-in-out infinite;
+}
 
-        /* --- Glitch Header --- */
-        .top-header {
-            font-size: 3rem;
-            letter-spacing: 12px;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 40px;
-            position: relative;
-            display: inline-block;
-            opacity: 0;
-            animation: fadeIn 1s 0.5s forwards;
-        }
+.bg-overlay{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle,rgba(5,5,5,0.1),rgba(5,5,5,0.85));
+}
 
-        .top-header::before, .top-header::after {
-            content: "AT EASE";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
+/* WRAPPER */
+.wrapper{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:10;
+}
 
-        .top-header::before {
-            left: 2px;
-            text-shadow: -2px 0 var(--accent);
-            clip-path: inset(45% 0 45% 0);
-            animation: glitch-gaming 3s infinite linear alternate-reverse;
-        }
+.frame{
+    width:100%;
+    max-width:1600px;
+    height:100vh;
+    display:flex;
+}
 
-        .top-header::after {
-            left: -2px;
-            text-shadow: 2px 0 #00fff9;
-            clip-path: inset(10% 0 80% 0);
-            animation: glitch-gaming 2s infinite linear alternate-reverse;
-        }
+/* IMAGE */
+.image-section{
+    flex:1;
+    height:100%;
+    overflow:hidden;
+    animation:slideLeft 1.6s cubic-bezier(0.77,0,0.175,1) forwards;
+}
 
-        /* --- Layout --- */
-        .wrapper {
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-        }
+.image-section img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:grayscale(1) brightness(0.85);
+    animation:
+        portraitBreath 6s ease-in-out infinite,
+        portraitColor 6s ease-in-out infinite;
+}
 
-        .image-section {
-            flex: 1;
-            height: 100%;
-            overflow: hidden;
-            clip-path: inset(0 100% 0 0);
-            animation: reveal 1.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-            border-right: 1px solid rgba(255,255,255,0.05);
-        }
+/* CONTENT */
+.content-section{
+    flex:1.3;
+    height:100%;
+    display:flex;
+    align-items:center;
+    animation:slideRight 1.6s cubic-bezier(0.77,0,0.175,1) forwards;
+}
 
-        .image-section img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(1);
-            transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1), filter 1.2s ease;
-        }
+.content-inner{
+    --content-width:560px;
+    max-width:var(--content-width);
+    padding:0 4vw;
+}
 
-        .image-section:hover img {
-            filter: grayscale(0) brightness(0.8);
-            transform: scale(1.08) !important;
-        }
+/* HEADER */
+.top-header{
+    font-size:3rem;
+    letter-spacing:12px;
+    color:rgba(255,255,255,0.7);
+    margin-bottom:40px;
+    position:relative;
+}
 
-        .content-section {
-            flex: 1.5;
-            padding: 0 6vw;
-        }
+.top-header::before,
+.top-header::after{
+    content:"AT EASE";
+    position:absolute;
+    inset:0;
+}
 
-        /* --- Hero Text & Glow Effect --- */
-        .honoring-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 2rem;
-            letter-spacing: 8px;
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-weight: 700;
-            opacity: 0;
-            animation: fadeIn 1s 1s forwards;
-        }
+.top-header::before{
+    left:2px;
+    text-shadow:-2px 0 var(--accent);
+    clip-path:inset(45% 0 45% 0);
+    animation:glitch-gaming 3s infinite linear alternate-reverse;
+}
 
-        .hero-text {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(3rem, 5.5vw, 6.5rem);
-            line-height: 0.9;
-            text-transform: uppercase;
-            letter-spacing: -0.04em;
-            margin-bottom: 30px;
-            font-weight: 900;
-        }
+.top-header::after{
+    left:-2px;
+    text-shadow:2px 0 #00fff9;
+    clip-path:inset(10% 0 80% 0);
+    animation:glitch-gaming 2s infinite linear alternate-reverse;
+}
 
-        .outline-text {
-            -webkit-text-stroke: 1px var(--primary);
-            color: transparent;
-            transition: var(--transition-smooth);
-            text-shadow: 0 0 0px rgba(255, 255, 255, 0); /* Default: No Glow */
-        }
+.honoring-label{
+    font-family:'Inter',sans-serif;
+    font-size:2rem;
+    letter-spacing:8px;
+    color:var(--accent);
+    margin-bottom:20px;
+    font-weight:700;
+}
 
-        /* HOVER GLOW EFFECT */
-        .hero-text:hover .outline-text {
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 
-                         0 0 30px rgba(255, 255, 255, 0.2);
-            -webkit-text-stroke: 1px rgba(255,255,255,1);
-        }
+/* HERO */
+.hero-text{
+    font-family:'Inter',sans-serif;
+    font-size:clamp(4.8rem, max(4.8vh, 4.5vw), 6.8rem);
+    line-height:0.9;
+    font-weight:900;
+}
 
-        .invite-quote {
-            font-family: 'Tenor Sans', sans-serif;
-            font-size: 1.6rem;
-            line-height: 1.5;
-            color: rgba(255,255,255,0.85);
-            margin-bottom: 60px;
-            max-width: 900px;
-            opacity: 0;
-            animation: fadeIn 1s 1.5s forwards;
-        }
+.outline-text{
+    -webkit-text-stroke:1px var(--primary);
+    color:transparent;
+    animation:prakashGlow 1.4s ease-in-out infinite;
+}
 
-        .invite-quote b { color: var(--accent); letter-spacing: 2px; }
+/* QUOTE */
+.invite-quote{
+    font-family:'Tenor Sans',sans-serif;
+    font-size:1.5rem;
+    line-height:1.5;
+    margin:40px 0 50px;
+    text-align:justify;
+}
 
-        /* --- Details Grid --- */
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1.5fr;
-            gap: 30px;
-            opacity: 0;
-            animation: fadeInUp 1s 1.8s forwards;
-        }
+/* ACCENT TEXT (NEW — shared with HONORING color) */
+.accent-text{
+    color:var(--accent);
+    letter-spacing:2px;
+}
 
-        .detail-item {
-            padding: 25px 0;
-            border-top: 1px solid rgba(255,255,255,0.25);
-            transition: var(--transition-smooth);
-        }
+/* DETAILS */
+.details-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    max-width:var(--content-width);
+}
 
-        .detail-item h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            color: #aaa;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+.detail-item{
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,0.25);
+}
 
-        .detail-item p { font-size: 1.4rem; line-height: 1.3; }
+.detail-item h3{
+    font-family:'Inter',sans-serif;
+    font-size:1rem;
+    letter-spacing:3px;
+    color:#aaa;
+    margin-bottom:12px;
+}
 
-        .location-link { text-decoration: none; color: inherit; }
+.detail-item p{
+    font-size:1.5rem;
+}
 
-        .location-link:hover .detail-item {
-            border-top-color: var(--accent);
-            transform: translateY(-5px);
-            background: var(--glass);
-            padding-left: 15px;
-        }
+/* FORCE VENUE FULL WIDTH */
+.detail-item.venue{
+    grid-column:1 / -1;
+}
 
-        .pulse-box {
-            display: flex; align-items: center; margin-top: 10px;
-            color: var(--accent); font-weight: 800; font-size: 0.9rem;
-        }
+/* VIEW MAP */
+.location-link{
+    text-decoration:none;
+    color:inherit;
+    display:inline-block;
+    margin-top:14px;
+}
 
-        .pulse-dot {
-            width: 8px; height: 8px; background: var(--accent);
-            border-radius: 50%; margin-right: 12px; position: relative;
-        }
+.pulse-box{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 26px;
+    border-radius:999px;
+    background:linear-gradient(120deg,rgba(255,255,255,0.18),rgba(255,255,255,0.05));
+    backdrop-filter:blur(18px) saturate(170%);
+    border:1px solid rgba(255,255,255,0.25);
+    box-shadow:
+        0 0 18px rgba(255,62,0,0.35),
+        inset 0 0 12px rgba(255,255,255,0.25);
+    font-weight:900;
+    letter-spacing:2px;
+    font-size:0.85rem;
+    color:var(--accent);
+    animation:mapGlow 1.6s ease-in-out infinite;
+}
 
-        .pulse-dot::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--accent); border-radius: 50%; animation: ripple 2s infinite;
-        }
+.pulse-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:var(--accent);
+    position:relative;
+    box-shadow:0 0 10px var(--accent);
+}
 
-        /* --- Animations --- */
-        @keyframes glitch-gaming {
-            0% { clip-path: inset(80% 0 1% 0); transform: translate(-5px, -2px); }
-            50% { clip-path: inset(10% 0 30% 0); transform: translate(5px, 0); }
-            100% { clip-path: inset(45% 0 45% 0); transform: translate(0); }
-        }
-        @keyframes ripple { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3.5); opacity: 0; } }
-        @keyframes reveal { to { clip-path: inset(0 0 0 0); } }
-        @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.pulse-dot::after{
+    content:"";
+    position:absolute;
+    inset:-4px;
+    border-radius:50%;
+    background:rgba(255,62,0,0.6);
+    animation:ripple 1.2s infinite;
+}
 
-        @media (max-width: 1000px) {
-            body { overflow-y: auto; height: auto; cursor: auto; }
-            #cursor { display: none; }
-            .wrapper { flex-direction: column; height: auto; }
-            .image-section { height: 50vh; width: 100%; border-right: none; }
-            .content-section { padding: 60px 20px; }
-            .details-grid { grid-template-columns: 1fr; gap: 0; }
-        }
-    </style>
+/* ANIMATIONS */
+@keyframes portraitBreath{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.025);}
+}
+@keyframes portraitColor{
+    0%,100%{filter:grayscale(1) brightness(0.85);}
+    50%{filter:grayscale(0.1) brightness(1);}
+}
+@keyframes prakashGlow{
+    0%,100%{text-shadow:0 0 25px rgba(255,255,255,0.8);}
+    50%{text-shadow:0 0 60px rgba(255,62,0,1);}
+}
+@keyframes glitch-gaming{
+    0%{clip-path:inset(80% 0 1% 0);}
+    100%{clip-path:inset(10% 0 80% 0);}
+}
+@keyframes bgBreath{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.04);}
+}
+@keyframes ripple{
+    0%{transform:scale(0.8);opacity:0.8;}
+    100%{transform:scale(2.4);opacity:0;}
+}
+@keyframes slideLeft{
+    from{opacity:0;transform:translateX(-120px);}
+    to{opacity:1;}
+}
+@keyframes slideRight{
+    from{opacity:0;transform:translateX(120px);}
+    to{opacity:1;}
+}
+@keyframes mapGlow{
+    0%,100%{
+        box-shadow:
+            0 0 14px rgba(255,62,0,0.35),
+            inset 0 0 10px rgba(255,255,255,0.2);
+    }
+    50%{
+        box-shadow:
+            0 0 36px rgba(255,62,0,0.9),
+            inset 0 0 18px rgba(255,255,255,0.35);
+    }
+}
+
+/* MOBILE */
+@media (max-width:1024px), (orientation:portrait){
+    body{overflow-y:auto;}
+    .frame{flex-direction:column;height:auto;}
+    .image-section{height:55vh;}
+    .content-section{height:auto;}
+    .content-inner{padding:60px 24px 80px;}
+    .details-grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
+
 <body>
 
-    <div id="cursor"></div>
-    <div class="career-bg" id="parallax-bg"></div>
-    <div class="bg-overlay"></div>
-    
-    <main class="wrapper">
-        <section class="image-section" id="parallax-img">
-            <img src="portrait.png" alt="Swayam Prakash Portrait">
-        </section>
+<div class="career-bg"></div>
+<div class="bg-overlay"></div>
 
-        <section class="content-section">
-            <div class="top-header">AT EASE</div>
-            <p class="honoring-label">HONORING</p>
-            <h1 class="hero-text">
-                SWAYAM<br>
-                <span class="outline-text">PRAKASH</span>
-            </h1>
-            <p class="invite-quote">
-                The meetings are over, the inbox is empty, and the clock is finally ours. Join us for a night of toasts and celebration as we mark the beginning of a well-earned <b>INFINITE VACATION</b>.
-            </p>
+<main class="wrapper">
+<div class="frame">
 
-            <div class="details-grid">
-                <div class="detail-item">
-                    <h3>The Date</h3>
-                    <p>01 APRIL<br>2026</p>
+<section class="image-section">
+    <img src="portrait.png" alt="Swayam Prakash Portrait">
+</section>
+
+<section class="content-section">
+<div class="content-inner">
+
+    <div class="top-header">AT EASE</div>
+    <p class="honoring-label">HONORING</p>
+
+    <h1 class="hero-text">
+        SWAYAM<br>
+        <span class="outline-text">PRAKASH</span>
+    </h1>
+
+    <p class="invite-quote">
+        The meetings are over, the inbox is empty, and the clock is finally ours.
+        Join us for a night of toasts and celebration as we mark the beginning of a
+        well-earned <span class="accent-text">INFINITE VACATION</span>.
+    </p>
+
+    <div class="details-grid">
+        <div class="detail-item">
+            <h3>The Date</h3>
+            <p>01 APRIL 2026</p>
+        </div>
+
+        <div class="detail-item">
+            <h3>The Hour</h3>
+            <p>08:00 PM</p>
+        </div>
+
+        <div class="detail-item venue">
+            <h3>The Venue</h3>
+            <p>THE GREEN LEMON</p>
+            <p style="font-size:1rem;color:#aaa;">BAREILLY, UP</p>
+
+            <a class="location-link" href="https://maps.app.goo.gl/6UHftyrDyBJ5tDLN7" target="_blank">
+                <div class="pulse-box">
+                    <div class="pulse-dot"></div>
+                    VIEW MAP
                 </div>
-                <div class="detail-item">
-                    <h3>The Hour</h3>
-                    <p>08:00 PM<br>SHARP</p>
-                </div>
-                <a href="https://maps.app.goo.gl/6UHftyrDyBJ5tDLN7" target="_blank" class="location-link hover-target">
-                    <div class="detail-item">
-                        <h3>The Venue</h3>
-                        <p>THE GREEN LEMON</p>
-                        <p style="font-size: 0.9rem; color: #aaa; margin: 5px 0;">BAREILLY, UP</p>
-                        <div class="pulse-box"><div class="pulse-dot"></div>VIEW MAP</div>
-                    </div>
-                </a>
-            </div>
-        </section>
-    </main>
+            </a>
+        </div>
+    </div>
 
-    <script>
-        const cursor = document.getElementById('cursor');
-        const bg = document.getElementById('parallax-bg');
-        const img = document.querySelector('#parallax-img img');
-        const imgSection = document.getElementById('parallax-img');
+</div>
+</section>
 
-        let mouseX = 0, mouseY = 0;
-        let isHoveringImg = false;
+</div>
+</main>
 
-        imgSection.addEventListener('mouseenter', () => isHoveringImg = true);
-        imgSection.addEventListener('mouseleave', () => isHoveringImg = false);
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-
-            const x = (window.innerWidth / 2 - mouseX) / 45;
-            const y = (window.innerHeight / 2 - mouseY) / 45;
-
-            requestAnimationFrame(() => {
-                bg.style.transform = `translate(${x}px, ${y}px) scale(1.1)`;
-                if (isHoveringImg) {
-                    img.style.transform = `translate(${-x/3}px, ${-y/3}px) scale(1.08)`;
-                } else {
-                    img.style.transform = `translate(${-x}px, ${-y}px) scale(1.01)`;
-                }
-            });
-        });
-
-        const targets = document.querySelectorAll('.hover-target, .detail-item, .image-section, .hero-text, .location-link');
-        targets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(4)';
-                cursor.style.background = 'rgba(255, 62, 0, 0.2)';
-                cursor.style.border = 'none';
-            });
-            target.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
-                cursor.style.background = 'transparent';
-                cursor.style.border = '1px solid var(--accent)';
-            });
-        });
-    </script>
 </body>
 </html>
